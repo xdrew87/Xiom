@@ -183,6 +183,7 @@ class ServerFingerprint:
             print(f"{Fore.YELLOW}[*] Analyzing SSL/TLS certificate...{Style.RESET_ALL}")
 
             context = ssl.create_default_context()
+            context.minimum_version = ssl.TLSVersion.TLSv1_2
             context.check_hostname = False
             context.verify_mode = ssl.CERT_NONE
 
