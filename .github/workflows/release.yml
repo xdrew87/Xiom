@@ -5,6 +5,10 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: write
+  releases: write
+
 jobs:
   release:
     name: Create GitHub Release
@@ -18,41 +22,16 @@ jobs:
       
       - name: Extract version
         id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
-      
-      - name: Generate changelog
-        id: changelog
         run: |
-          {
-            echo "CHANGELOG<<EOF"
-            git log $(git describe --tags --abbrev=0 HEAD^)..HEAD --oneline 2>/dev/null || git log --oneline -20
-            echo "EOF"
-          } >> $GITHUB_OUTPUT
+          VERSION=${GITHUB_REF#refs/tags/}
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Release: $VERSION"
       
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ steps.version.outputs.VERSION }}
-          body: |
-            # Release ${{ steps.version.outputs.VERSION }}
-            
-            ## Changes
-            ${{ steps.changelog.outputs.CHANGELOG }}
-            
-            ## Installation
-            ```bash
-            git clone https://github.com/xdrew87/Xiom.git
-            cd Xiom
-            pip install -r requirements.txt
-            python3 xiom.py https://example.com
-            ```
-            
-            ## What's New
-            - See commit history for detailed changes
-            - Report issues: https://github.com/xdrew87/Xiom/issues
-            
-            ---
-            **Made with ❤️ for security professionals**
+          generate_release_notes: true
           draft: false
           prerelease: false
         env:
