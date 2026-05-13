@@ -1,0 +1,59 @@
+name: Create Release Notes
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create GitHub Release
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Extract version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+      
+      - name: Generate changelog
+        id: changelog
+        run: |
+          {
+            echo "CHANGELOG<<EOF"
+            git log $(git describe --tags --abbrev=0 HEAD^)..HEAD --oneline 2>/dev/null || git log --oneline -20
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ steps.version.outputs.VERSION }}
+          body: |
+            # Release ${{ steps.version.outputs.VERSION }}
+            
+            ## Changes
+            ${{ steps.changelog.outputs.CHANGELOG }}
+            
+            ## Installation
+            ```bash
+            git clone https://github.com/xdrew87/Xiom.git
+            cd Xiom
+            pip install -r requirements.txt
+            python3 xiom.py https://example.com
+            ```
+            
+            ## What's New
+            - See commit history for detailed changes
+            - Report issues: https://github.com/xdrew87/Xiom/issues
+            
+            ---
+            **Made with ❤️ for security professionals**
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
