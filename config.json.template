@@ -1,0 +1,28 @@
+{
+  "timeout": 10,
+  "verify_ssl": true,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+  "api_keys": {
+    "virustotal": "YOUR_API_KEY_HERE",
+    "shodan": "YOUR_API_KEY_HERE",
+    "abuseipdb": "YOUR_API_KEY_HERE"
+  },
+  "ports_to_scan": [
+    80,
+    443,
+    22,
+    21,
+    25,
+    8080,
+    8443,
+    3306,
+    5432,
+    27017
+  ],
+  "dns_nameservers": [
+    "8.8.8.8",
+    "1.1.1.1"
+  ],
+  "max_retries": 3,
+  "retry_delay": 2
+}
