@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Python](https://img.shields.io/badge/python-3.7+-orange)
 ![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey)
-[![GitHub releases](https://img.shields.io/github/release/xdrew87/Xiom.svg)](https://github.com/xdrew87/Xiom/releases)
+[![GitHub releases](https://img.shields.io/github/release/xdrew87/Xiom.svg)](https://github.com/xdrew87/Xiom/releases/)
 
 **Xiom** is a powerful command-line OSINT reconnaissance tool for website and server fingerprinting. Extract sensitive infrastructure details, server types, SSL certificates, DNS records, and technology stacks from any target URL in seconds.
 
