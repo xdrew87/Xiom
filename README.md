@@ -262,7 +262,7 @@ This project is licensed under the **MIT License** — see [LICENSE](LICENSE) fo
 
 - [ ] Batch mode (scan multiple URLs from file)
 - [ ] Export to PDF/HTML reports
-- [ ] GUI version (Tkinter)
+- [ ] GUI version (PYQT6)
 - [ ] Automated scanning schedules
 - [ ] Custom fingerprint rules
 - [ ] REST API for integration
